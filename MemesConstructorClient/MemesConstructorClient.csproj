@@ -13,8 +13,4 @@
     <PackageReference Include="Tewr.Blazor.FileReader" Version="3.0.0.20340" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

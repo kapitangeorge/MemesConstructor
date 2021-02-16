@@ -1,4 +1,6 @@
 using MemesConstructorWebApi.Context;
+using MemesConstructorWebApi.Interfaceses;
+using MemesConstructorWebApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -28,12 +30,14 @@ namespace MemesConstructorWebApi
         
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IMemesRepository, MemesRepository>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             });
             services.AddDbContext<AppDbContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddControllers();
         }
 

@@ -1,5 +1,24 @@
 ﻿@page "/"
+@inherits IndexBase
+
+<a href="AddMem" class="btn btn-outline-primary" >Добавить мем</a>
+<ul class="memes">
+    @if (Memes != null)
+    {
+@foreach (var mem in Memes)
+{
+    <li style="background-image: url('@mem.ImagePath')">
+        <div class="memes-info">
+            <span class="title">@mem.Name</span>
+            @mem.Description
+            
+        </div>
+    </li>
+}}
+</ul>
 
 
 
-<UploadImage Folder="Memes"></UploadImage>
+@code{
+
+}

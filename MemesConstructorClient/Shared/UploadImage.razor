@@ -1,8 +1,7 @@
 ﻿@using System.IO
 @using Tewr.Blazor.FileReader
 
-@inject IFileReaderService fileReader
-@inject HttpClient http
+@inherits UploadImageBase
 
 <div class="row">
     <div class="col-4">
@@ -18,75 +17,18 @@
 
         @if (!string.IsNullOrEmpty(message))
         {
-            <div class="alert alert-success">
-                @message
-            </div>
+<div class="alert alert-success">
+    @message
+</div> }
+            else
+            {
+<button class="btn btn-block btn-outline-success" @onclick="async ()=> await UploadFileAsync()">Загрузить файл</button>}
+    </div>
+    @if (imagePath != null)
+    {
+<div class="col-4">
+    <img style="width:150px" src="@imagePath" />
+</div>}
 
-        }
-        else
-        {
-            <button class="btn btn-block btn-outline-success" @onclick="async ()=> await UploadFileAsync()">Загрузить файл</button>
-        }
-    </div>
-    <div class="col-4">
-        <img style="width:150px" src="@imagePath" />
-    </div>
 </div>
-@code {
-    [Parameter]
-    public string Folder { get; set; }
 
-
-    ElementReference inputReference;
-    string message = string.Empty;
-    string imagePath = null;
-
-    string fileName = string.Empty;
-    string type = string.Empty;
-    string size = string.Empty;
-
-    Stream fileStream = null;
-
-    async Task OpenFileAsync()
-    {
-        var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
-
-        if (file == null)
-        {
-            return;
-        }
-
-        var fileInfo = await file.ReadFileInfoAsync();
-
-        fileName = fileInfo.Name;
-        type = fileInfo.Type;
-        size = $"{fileInfo.Size}b";
-
-
-        using (var ms = await file.CreateMemoryStreamAsync((int)fileInfo.Size))
-        {
-            fileStream = new MemoryStream(ms.ToArray());
-        }
-    }
-
-    async Task UploadFileAsync()
-    {
-        var content = new MultipartFormDataContent();
-        content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
-
-        content.Add(new StreamContent(fileStream, (int)fileStream.Length), "image", fileName);
-
-        string url = "https://localhost:44309";
-
-        var response = await http.PostAsync($"{url}/api/Image/{Folder}", content);
-
-        if (response.IsSuccessStatusCode)
-        {
-            var uploadFileName = await response.Content.ReadAsStringAsync();
-
-            imagePath = $"{url}/Images/{uploadFileName}";
-
-            message = "Файл был загружен";
-        }
-    }
-}
