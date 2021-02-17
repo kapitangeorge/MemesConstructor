@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace MemesConstructorClient.Interfaces
 {
-    public interface IMemesService
+    public interface ICommentsService
     {
-        Task<IEnumerable<Mem>> GetMemes();
-        Task<Mem> AddNewMem(Mem mem);
-        Task<Mem> GetMemById(int id);
+        Task<IEnumerable<Comment>> GetComments(int memId);
+
+        Task<Comment> CreateComment(Comment comment);
     }
 }

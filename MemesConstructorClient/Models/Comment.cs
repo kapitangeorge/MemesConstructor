@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MemesConstructorWebApi.Models
+namespace MemesConstructorClient.Models
 {
     public class Comment
     {
@@ -17,6 +18,7 @@ namespace MemesConstructorWebApi.Models
 
         public int Mem_Id { get; set; }
 
+        [Required]
         public string TextComment { get; set; }
     }
 }

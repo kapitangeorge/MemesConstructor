@@ -1,0 +1,56 @@
+﻿@inherits CommentsBase
+
+<div class="row">
+    <div class="col">
+        <EditForm Model="Comment" OnValidSubmit="HandleValidSubmit">
+            <DataAnnotationsValidator />
+            
+                <div class="form-group">
+                    <label class="form-check-label">Добавить коментарий</label>
+                    <ValidationMessage For="@(()=>@Comment.TextComment)"></ValidationMessage>
+                    <InputTextArea @bind-Value="@Comment.TextComment" class="form-control" />
+
+                </div>
+                <div class="form-inline">
+                    <button type="submit" class="btn btn-outline-primary">Добавить комментарий</button>
+                </div>
+           
+           
+
+        </EditForm>
+    </div>
+
+
+</div>
+
+@if (Comments == null)
+{
+    <div class="spinner"></div>
+}
+else
+{
+    <h3>Комментарии</h3>
+    <div class="row">
+        <div class="col">
+            <ul>
+                @foreach (var comment in Comments)
+                {
+                    <li class="alert">
+
+                        <div class="card-header">
+                            <label>@comment.PublishDate</label>
+                            <label>@comment.Rating</label>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                @comment.TextComment
+                            </p>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+
+}

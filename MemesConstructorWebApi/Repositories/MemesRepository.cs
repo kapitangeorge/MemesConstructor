@@ -1,5 +1,5 @@
 ﻿using MemesConstructorWebApi.Context;
-using MemesConstructorWebApi.Interfaceses;
+using MemesConstructorWebApi.Interfaces;
 using MemesConstructorWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;

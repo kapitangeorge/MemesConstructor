@@ -28,5 +28,10 @@ namespace MemesConstructorClient.Services
             var result = await httpClient.PostAsJsonAsync("api/Memes", mem);
             return await result.Content.ReadFromJsonAsync<Mem>();
         }
+
+        public async Task<Mem> GetMemById(int id)
+        {
+            return await httpClient.GetFromJsonAsync<Mem>($"api/Memes/{id}");
+        }
     }
 }

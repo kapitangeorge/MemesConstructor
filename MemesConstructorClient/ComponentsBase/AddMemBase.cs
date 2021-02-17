@@ -10,7 +10,7 @@ namespace MemesConstructorClient.ComponentsBase
 {
     public class AddMemBase : ComponentBase
     {
-        public Mem mem = new Mem() { PublishDate = DateTime.Now };
+        public Mem mem = new Mem() { PublishDate = DateTime.Now, Rating = 0 };
 
         [Inject]
         public IMemesService MemesService { get; set; }

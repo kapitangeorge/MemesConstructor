@@ -1,5 +1,5 @@
 using MemesConstructorWebApi.Context;
-using MemesConstructorWebApi.Interfaceses;
+using MemesConstructorWebApi.Interfaces;
 using MemesConstructorWebApi.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -31,6 +31,7 @@ namespace MemesConstructorWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IMemesRepository, MemesRepository>();
+            services.AddScoped<ICommentsRepository, CommentsRepository>();
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy", builder =>

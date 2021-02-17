@@ -28,6 +28,7 @@ namespace MemesConstructorClient
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44309/") });
 
             builder.Services.AddScoped<IMemesService, MemesService>();
+            builder.Services.AddScoped<ICommentsService, CommentsService>();
 
             await builder.Build().RunAsync();
         }
