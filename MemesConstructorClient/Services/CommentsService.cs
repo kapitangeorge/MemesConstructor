@@ -27,5 +27,11 @@ namespace MemesConstructorClient.Services
         {
             return await httpClient.GetFromJsonAsync<List<Comment>>($"api/Comments/GetCommentsByMemId/{memId}");
         }
+
+        public async Task<Comment> UpdateComment(Comment comment, int id)
+        {
+            var result = await httpClient.PutAsJsonAsync($"api/Comments/{id}", comment);
+            return await result.Content.ReadFromJsonAsync<Comment>();
+        }
     }
 }

@@ -13,6 +13,8 @@ namespace MemesConstructorWebApi.Interfaces
         public Task<Comment> CreateComment(Comment comment);
 
         public Task<Comment> GetCommentById(int id);
+
+        public Task<Comment> UpdateComment(Comment comment);
     }
 }
 

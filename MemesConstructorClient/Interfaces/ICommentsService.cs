@@ -11,5 +11,7 @@ namespace MemesConstructorClient.Interfaces
         Task<IEnumerable<Comment>> GetComments(int memId);
 
         Task<Comment> CreateComment(Comment comment);
+
+        Task<Comment> UpdateComment(Comment comment, int id);
     }
 }

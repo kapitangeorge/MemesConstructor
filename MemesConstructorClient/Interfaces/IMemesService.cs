@@ -11,5 +11,7 @@ namespace MemesConstructorClient.Interfaces
         Task<IEnumerable<Mem>> GetMemes();
         Task<Mem> AddNewMem(Mem mem);
         Task<Mem> GetMemById(int id);
+
+        Task<Mem> UpdateMem(int id,Mem mem);
     }
 }

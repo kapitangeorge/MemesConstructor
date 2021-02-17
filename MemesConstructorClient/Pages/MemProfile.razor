@@ -1,8 +1,8 @@
 ﻿@page "/MemProfile/{id}"
 @inherits MemProfileBase
 
-<a href="/" class="btn btn-outline-info" >
-   <span class="oi oi-arrow-circle-left"></span>
+<a href="/" class="btn btn-outline-info">
+    <span class="oi oi-arrow-circle-left"></span>
 </a>
 @if (Mem == null)
 {
@@ -20,15 +20,36 @@ else
                 <div class="card-body text-center">
                     <img class="card-img-top" src="@Mem.ImagePath" />
 
-                    <h4>@Mem.Rating</h4>
+                    <div>
+                        <button @onclick="MinusRating" class="btn btn-outline-danger">
+                            <span class="oi oi-caret-bottom"></span>
+                        </button>
+                        @if (Mem.Rating > 0)
+                        {
+                            <span style="color:forestgreen">@Mem.Rating</span>
+                        }
+                        else if (Mem.Rating < 0)
+                        {
+                            <span style="color:red">@Mem.Rating</span>
+                        }
+                        else
+                        {
+                            <span>@Mem.Rating</span>
+                        }
+                        <button @onclick="PlusRating" class="btn btn-outline-success">
+                            <span class="oi oi-caret-top">
+                            </span>
+                        </button>
+                    </div>
                     <p>
                         @Mem.Description
                     </p>
                 </div>
-                
+
             </div>
         </div>
-    </div><br />
+    </div>
+    <br />
 
     <Comments Id="@int.Parse(Id)"></Comments>
 }

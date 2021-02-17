@@ -39,7 +39,27 @@ else
 
                         <div class="card-header">
                             <label>@comment.PublishDate</label>
-                            <label>@comment.Rating</label>
+                            <div>
+                                <button @onclick="()=>MinusRating(comment)" class="btn btn-outline-danger">
+                                    <span class="oi oi-caret-bottom"></span>
+                                </button>
+                                @if (comment.Rating > 0)
+                                {
+                                    <span style="color:forestgreen">@comment.Rating</span>
+                                }
+                                else if (comment.Rating < 0)
+                                {
+                                    <span style="color:red">@comment.Rating</span>
+                                }
+                                else
+                                {
+                                    <span>@comment.Rating</span>
+                                }
+                                <button @onclick="()=>PlusRating(comment)" class="btn btn-outline-success">
+                                    <span class="oi oi-caret-top">
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                         <div class="card-body">
                             <p>

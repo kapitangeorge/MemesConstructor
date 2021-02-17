@@ -36,9 +36,26 @@ namespace MemesConstructorClient.ComponentsBase
            if(result != null)
             {
                 Comments = await CommentService.GetComments(Id);
-                NavigationManager.NavigateTo($"/MemProfile/{Id}");
+                StateHasChanged();
+                
             }
             
+        }
+
+        protected async Task MinusRating(Comment comment)
+        {
+            comment.Rating -= 1;
+            await CommentService.UpdateComment(comment, comment.Id);
+
+            StateHasChanged();
+        }
+
+        protected async Task PlusRating(Comment comment)
+        {
+            comment.Rating += 1;
+            await CommentService.UpdateComment(comment, comment.Id);
+
+            StateHasChanged();
         }
     }
 }

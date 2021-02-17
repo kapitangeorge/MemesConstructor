@@ -33,5 +33,11 @@ namespace MemesConstructorClient.Services
         {
             return await httpClient.GetFromJsonAsync<Mem>($"api/Memes/{id}");
         }
+
+        public async Task<Mem> UpdateMem(int id,Mem mem)
+        {
+            var result = await httpClient.PutAsJsonAsync($"api/Memes/{id}", mem);
+            return await result.Content.ReadFromJsonAsync<Mem>();
+        }
     }
 }

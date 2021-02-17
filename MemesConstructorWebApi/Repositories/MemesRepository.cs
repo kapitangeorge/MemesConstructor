@@ -57,7 +57,7 @@ namespace MemesConstructorWebApi.Repositories
                 result.Name = mem.Name;
                 result.Description = mem.Description;
                 result.ImagePath = mem.ImagePath;
-
+                result.Rating = mem.Rating;
                 database.Update(result);
                 await database.SaveChangesAsync();
                 return result;

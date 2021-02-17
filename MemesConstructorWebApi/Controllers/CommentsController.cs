@@ -72,5 +72,28 @@ namespace MemesConstructorWebApi.Controllers
                     "Error creating new mem record");
             }
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<Comment>> UpdateComment(int id, Comment comment)
+        {
+            try
+            {
+                if (id != comment.Id)
+                    return BadRequest("Comment ID mismatch");
+
+                var commentToUpdate = await commentsRepository.GetCommentById(id);
+
+                if (commentToUpdate == null)
+                    return NotFound($"Comment with Id = {id} not found");
+
+                return await commentsRepository.UpdateComment(comment);
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error updating data");
+            }
+        }
+
     }
 }

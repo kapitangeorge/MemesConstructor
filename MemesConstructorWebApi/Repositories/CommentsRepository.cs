@@ -34,5 +34,21 @@ namespace MemesConstructorWebApi.Repositories
         {
             return await database.Comments.Where(c => c.Mem_Id == id).OrderByDescending(c => c.PublishDate).ToListAsync();
         }
+
+        public async Task<Comment> UpdateComment(Comment comment)
+        {
+            var result = await database.Comments.FirstOrDefaultAsync(c => c.Id == comment.Id);
+
+            if (result != null)
+            {
+                result.Rating = comment.Rating;
+                result.TextComment = comment.TextComment;
+                database.Update(result);
+                await database.SaveChangesAsync();
+                return result;
+            }
+
+            return null;
+        }
     }
 }

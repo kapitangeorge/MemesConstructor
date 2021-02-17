@@ -23,6 +23,20 @@ namespace MemesConstructorClient.ComponentsBase
             Mem = await MemesService.GetMemById(int.Parse(Id));
 
         }
-            }
+
+        protected async Task PlusRating()
+        {
+            Mem.Rating += 1;
+            Mem = await MemesService.UpdateMem(int.Parse(Id), Mem);
+            StateHasChanged();
+        }
+
+        protected async Task MinusRating()
+        {
+            Mem.Rating -= 1;
+            Mem = await MemesService.UpdateMem(int.Parse(Id), Mem);
+            StateHasChanged();
+        }
+    }
 
 }
