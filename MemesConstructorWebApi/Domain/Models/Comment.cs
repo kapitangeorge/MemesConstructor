@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MemesConstructorWebApi.Models
+namespace MemesConstructorWebApi.Domain.Models
 {
     public class Comment
     {
@@ -11,11 +11,9 @@ namespace MemesConstructorWebApi.Models
 
         public DateTime PublishDate { get; set; }
 
-        public int Author_Id { get; set; }
-
         public int Rating { get; set; }
 
-        public int Mem_Id { get; set; }
+        public virtual Mem Mem { get; set; }
 
         public string TextComment { get; set; }
     }

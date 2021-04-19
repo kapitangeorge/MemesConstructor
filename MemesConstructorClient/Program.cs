@@ -25,7 +25,7 @@ namespace MemesConstructorClient
                 options.UseWasmSharedBuffer = true;
             });
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:44309/") });
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:5001/") });
 
             builder.Services.AddScoped<IMemesService, MemesService>();
             builder.Services.AddScoped<ICommentsService, CommentsService>();

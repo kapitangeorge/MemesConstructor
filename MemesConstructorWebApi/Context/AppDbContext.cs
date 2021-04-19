@@ -1,4 +1,4 @@
-﻿using MemesConstructorWebApi.Models;
+﻿using MemesConstructorWebApi.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -16,7 +16,6 @@ namespace MemesConstructorWebApi.Context
 
         public DbSet<Mem> Memes { get; set; }
 
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Comment> Comments { get; set; }
     }

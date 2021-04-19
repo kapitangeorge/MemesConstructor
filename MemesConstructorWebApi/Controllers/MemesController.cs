@@ -1,6 +1,7 @@
 ﻿using MemesConstructorWebApi.Context;
+using MemesConstructorWebApi.Domain.Models;
 using MemesConstructorWebApi.Interfaces;
-using MemesConstructorWebApi.Models;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -57,17 +58,16 @@ namespace MemesConstructorWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> CreateMem([FromBody]Mem mem)
+        public async Task<ActionResult> CreateMem([FromBody] Mem mem)
         {
             try
             {
                 if (mem == null)
                     return BadRequest();
 
-                var createdMem = await memesRepository.AddMem(mem);
+                await memesRepository.AddMem(mem);
 
-                return CreatedAtAction(nameof(GetMem),
-                    new { id = createdMem.Id }, createdMem);
+                return Ok();
             }
             catch (Exception)
             {
@@ -77,19 +77,16 @@ namespace MemesConstructorWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Mem>> UpdateMem(int id, Mem mem)
+        public async Task<ActionResult> UpdateMem(Mem mem)
         {
             try
             {
-                if (id != mem.Id)
-                    return BadRequest("Mem ID mismatch");
+                if (mem == null)
+                    return NotFound($"Mem  not found");
 
-                var memToUpdate = await memesRepository.GetMem(id);
+                await memesRepository.UpdateMem(mem);
 
-                if (memToUpdate == null)
-                    return NotFound($"Mem with Id = {id} not found");
-
-                return await memesRepository.UpdateMem(mem);
+                return Ok();
             }
             catch (Exception)
             {
@@ -110,7 +107,9 @@ namespace MemesConstructorWebApi.Controllers
                     return NotFound($"Mem with Id = {id} not found");
                 }
 
-                return await memesRepository.DeleteMem(id);
+                await memesRepository.DeleteMem(id);
+
+                return Ok();
             }
             catch (Exception)
             {

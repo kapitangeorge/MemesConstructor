@@ -16,14 +16,14 @@ namespace MemesConstructorWebApi.Controllers
         private readonly IHostEnvironment _environment;
         public ImageController(IHostEnvironment environment)
         {
-            _environment = environment;   
+            _environment = environment;
         }
 
         [HttpPost("{folder}")]
-        
-        public async Task<IActionResult> Post(string folder, [FromForm]IFormFile image)
+
+        public async Task<IActionResult> Post(string folder, [FromForm] IFormFile image)
         {
-            var folderPath = Path.Combine(_environment.ContentRootPath, "wwwroot","Images", folder);
+            var folderPath = Path.Combine(_environment.ContentRootPath, "wwwroot", "Images", folder);
 
             if (!Directory.Exists(folderPath))
                 return BadRequest("Incorrect folder name");
@@ -41,7 +41,7 @@ namespace MemesConstructorWebApi.Controllers
             string newFileName = $"{Guid.NewGuid()}{extension}";
             string filePath = Path.Combine(folderPath, newFileName);
 
-            using(var filestream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            using (var filestream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
 
                 await image.CopyToAsync(filestream);

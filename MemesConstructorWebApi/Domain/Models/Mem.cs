@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MemesConstructorWebApi.Models
+namespace MemesConstructorWebApi.Domain.Models
 {
     public class Mem
     {
@@ -13,7 +13,6 @@ namespace MemesConstructorWebApi.Models
 
         public string Description { get; set; }
 
-        public int Author_id { get; set; }
 
         public int Rating { get; set; }
 

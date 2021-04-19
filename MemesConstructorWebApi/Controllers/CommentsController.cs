@@ -1,5 +1,6 @@
-﻿using MemesConstructorWebApi.Interfaces;
-using MemesConstructorWebApi.Models;
+﻿using MemesConstructorWebApi.Domain.Models;
+using MemesConstructorWebApi.Interfaces;
+
 using MemesConstructorWebApi.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace MemesConstructorWebApi.Controllers
         }
 
         [HttpGet("GetCommentsByMemId/{id}")]
-        public async Task<ActionResult<List<Comment>>> GetComments (int id)
+        public async Task<ActionResult<IEnumerable<Comment>>> GetComments(int id)
         {
             try
             {
@@ -61,10 +62,9 @@ namespace MemesConstructorWebApi.Controllers
                 if (comment == null)
                     return BadRequest();
 
-                var createdComment = await commentsRepository.CreateComment(comment);
+               await commentsRepository.CreateComment(comment);
 
-                return CreatedAtAction(nameof(GetCommentById),
-                    new { id = createdComment.Id }, createdComment);
+                return Ok();
             }
             catch (Exception)
             {
@@ -74,7 +74,7 @@ namespace MemesConstructorWebApi.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Comment>> UpdateComment(int id, Comment comment)
+        public async Task<ActionResult> UpdateComment(int id, Comment comment)
         {
             try
             {
@@ -86,7 +86,8 @@ namespace MemesConstructorWebApi.Controllers
                 if (commentToUpdate == null)
                     return NotFound($"Comment with Id = {id} not found");
 
-                return await commentsRepository.UpdateComment(comment);
+                await commentsRepository.UpdateComment(comment);
+                return Ok();
             }
             catch (Exception)
             {

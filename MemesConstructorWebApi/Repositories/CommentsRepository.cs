@@ -1,6 +1,6 @@
 ﻿using MemesConstructorWebApi.Context;
+using MemesConstructorWebApi.Domain.Models;
 using MemesConstructorWebApi.Interfaces;
-using MemesConstructorWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,17 +12,18 @@ namespace MemesConstructorWebApi.Repositories
     public class CommentsRepository : ICommentsRepository
     {
         private readonly AppDbContext database;
+       
 
         public CommentsRepository(AppDbContext context)
         {
             database = context;
         }
 
-        public async Task<Comment> CreateComment(Comment comment)
+        public async Task CreateComment(Comment comment)
         {
-            var result = await database.Comments.AddAsync(comment);
+            await database.Comments.AddAsync(comment);
             await database.SaveChangesAsync();
-            return result.Entity;
+
         }
 
         public async Task<Comment> GetCommentById(int id)
@@ -32,23 +33,13 @@ namespace MemesConstructorWebApi.Repositories
 
         public async Task<IEnumerable<Comment>> GetCommentByMemId(int id)
         {
-            return await database.Comments.Where(c => c.Mem_Id == id).OrderByDescending(c => c.PublishDate).ToListAsync();
+            return await database.Comments.Where(c => c.Mem.Id == id).OrderByDescending(c => c.PublishDate).ToListAsync();
         }
 
-        public async Task<Comment> UpdateComment(Comment comment)
+        public async Task UpdateComment(Comment comment)
         {
-            var result = await database.Comments.FirstOrDefaultAsync(c => c.Id == comment.Id);
-
-            if (result != null)
-            {
-                result.Rating = comment.Rating;
-                result.TextComment = comment.TextComment;
-                database.Update(result);
-                await database.SaveChangesAsync();
-                return result;
-            }
-
-            return null;
+            database.Comments.Update(comment);
+            await database.SaveChangesAsync();
         }
     }
 }

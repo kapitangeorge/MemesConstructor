@@ -1,6 +1,6 @@
 ﻿using MemesConstructorWebApi.Context;
+using MemesConstructorWebApi.Domain.Models;
 using MemesConstructorWebApi.Interfaces;
-using MemesConstructorWebApi.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,14 +17,14 @@ namespace MemesConstructorWebApi.Repositories
         {
             database = context;
         }
-        public async Task<Mem> AddMem(Mem mem)
+        public async Task AddMem(Mem mem)
         {
-            var result = await database.Memes.AddAsync(mem);
+            await database.Memes.AddAsync(mem);
             await database.SaveChangesAsync();
-            return result.Entity;
+
         }
 
-        public async Task<Mem> DeleteMem(int memId)
+        public async Task DeleteMem(int memId)
         {
             var result = await database.Memes
             .FirstOrDefaultAsync(m => m.Id == memId);
@@ -32,10 +32,10 @@ namespace MemesConstructorWebApi.Repositories
             {
                 database.Memes.Remove(result);
                 await database.SaveChangesAsync();
-                return result;
+
             }
 
-            return null;
+
         }
 
         public async Task<Mem> GetMem(int memId)
@@ -45,25 +45,13 @@ namespace MemesConstructorWebApi.Repositories
 
         public async Task<IEnumerable<Mem>> GetMemes()
         {
-            return await database.Memes.ToListAsync(); 
+            return await database.Memes.ToListAsync();
         }
 
-        public async Task<Mem> UpdateMem(Mem mem)
+        public async Task UpdateMem(Mem mem)
         {
-            var result = await database.Memes.FirstOrDefaultAsync(m => m.Id == mem.Id);
-
-            if(result != null)
-            {
-                result.Name = mem.Name;
-                result.Description = mem.Description;
-                result.ImagePath = mem.ImagePath;
-                result.Rating = mem.Rating;
-                database.Update(result);
-                await database.SaveChangesAsync();
-                return result;
-            }
-
-            return null;
+            database.Update(mem);
+            await database.SaveChangesAsync();
         }
     }
 }
