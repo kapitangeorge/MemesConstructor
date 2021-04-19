@@ -12,6 +12,6 @@ namespace MemesConstructorWebApi.Interfaces
         Task<Mem> GetMem(int memId);
         Task AddMem(Mem mem);
         Task UpdateMem(Mem mem);
-        Task DeleteMem(int memId);
+        Task DeleteMem(Mem mem);
     }
 }

@@ -24,18 +24,10 @@ namespace MemesConstructorWebApi.Repositories
 
         }
 
-        public async Task DeleteMem(int memId)
+        public async Task DeleteMem(Mem mem)
         {
-            var result = await database.Memes
-            .FirstOrDefaultAsync(m => m.Id == memId);
-            if (result != null)
-            {
-                database.Memes.Remove(result);
-                await database.SaveChangesAsync();
-
-            }
-
-
+            database.Memes.Remove(mem);
+            await database.SaveChangesAsync();
         }
 
         public async Task<Mem> GetMem(int memId)

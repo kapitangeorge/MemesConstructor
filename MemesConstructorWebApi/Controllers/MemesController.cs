@@ -107,7 +107,7 @@ namespace MemesConstructorWebApi.Controllers
                     return NotFound($"Mem with Id = {id} not found");
                 }
 
-                await memesRepository.DeleteMem(id);
+                await memesRepository.DeleteMem(memToDelete);
 
                 return Ok();
             }

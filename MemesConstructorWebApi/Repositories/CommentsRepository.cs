@@ -41,5 +41,11 @@ namespace MemesConstructorWebApi.Repositories
             database.Comments.Update(comment);
             await database.SaveChangesAsync();
         }
+
+        public async Task DeleteComment(Comment comment)
+        {
+            database.Comments.Remove(comment);
+            await database.SaveChangesAsync();
+        }
     }
 }

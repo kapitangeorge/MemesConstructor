@@ -17,6 +17,8 @@ namespace MemesConstructorWebApi.Interfaces
 
         Task CreateComment(Comment comment);
 
+        Task DeleteComment(Comment comment);
+
 
     }
 }
